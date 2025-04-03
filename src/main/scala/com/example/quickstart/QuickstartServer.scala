@@ -10,6 +10,9 @@ import org.http4s.implicits.*
 import org.http4s.server.middleware.Logger
 import org.http4s.dsl.Http4sDsl
 import org.http4s.HttpRoutes
+import org.http4s.headers.`Content-Type`
+import org.http4s.MediaType
+import scala.io.Source
 
 object QuickstartServer:
 
@@ -22,13 +25,11 @@ object QuickstartServer:
       helloWorldAlg = HelloWorld.impl[F]
       jokeAlg = Jokes.impl[F](client)
 
-      // Create home route that uses HelloWorld service
+      // Create home route that serves index.html
       homeRoute = HttpRoutes.of[F] {
         case GET -> Root =>
-          for {
-            greeting <- helloWorldAlg.hello(HelloWorld.Name("World"))
-            resp <- Ok(greeting)
-          } yield resp
+          val html = Source.fromResource("index.html").mkString
+          Ok(html, `Content-Type`(MediaType.text.html))
       }
 
       // Combine Service Routes into an HttpApp

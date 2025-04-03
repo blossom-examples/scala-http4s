@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>http4s Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">http4s Demo</h1>
+      <p class="text-gray-600 mb-4">A simple demo of http4s capabilities</p>
+      <a href="https://blossom-cloud.com" target="_blank"
+        class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+        <span>Deploy on Blossom</span>
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+      </a>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Greeting Generator -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Greeting Generator</h2>
+        <div class="space-y-4">
+          <div>
+            <label for="nameInput" class="block text-sm font-medium text-gray-700">Enter your name:</label>
+            <input type="text" id="nameInput"
+              class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              placeholder="World">
+          </div>
+          <button onclick="getGreeting()"
+            class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Get Greeting
+          </button>
+          <div id="greetingResult" class="mt-4 p-4 bg-gray-50 rounded-md hidden"></div>
+        </div>
+      </div>
+
+      <!-- Joke Service -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold mb-4">Random Joke</h2>
+        <div class="space-y-4">
+          <button onclick="getJoke()"
+            class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+            Get Joke
+          </button>
+          <div id="jokeResult" class="mt-4 p-4 bg-gray-50 rounded-md hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div id="statusBar" class="fixed bottom-0 left-0 right-0 p-4 text-center hidden">
+      <div id="statusMessage" class="inline-block px-6 py-3 rounded-lg text-white"></div>
+    </div>
+  </div>
+
+  <script>
+    function showStatus(message, isError = false) {
+      const statusBar = document.getElementById('statusBar');
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = message;
+      statusMessage.className = `inline-block px-6 py-3 rounded-lg text-white ${isError ? 'bg-red-500' : 'bg-green-500'}`;
+      statusBar.className = 'fixed bottom-0 left-0 right-0 p-4 text-center';
+      setTimeout(() => {
+        statusBar.className = 'fixed bottom-0 left-0 right-0 p-4 text-center hidden';
+      }, 3000);
+    }
+
+    async function getGreeting() {
+      const nameInput = document.getElementById('nameInput');
+      const resultDiv = document.getElementById('greetingResult');
+
+      try {
+        const name = nameInput.value || nameInput.placeholder;
+        const response = await fetch(`/hello/${encodeURIComponent(name)}`);
+        const data = await response.json();
+
+        resultDiv.textContent = data.message;
+        resultDiv.className = 'mt-4 p-4 bg-gray-50 rounded-md';
+        showStatus('Greeting received!');
+      } catch (error) {
+        showStatus('Error getting greeting', true);
+        console.error('Error:', error);
+      }
+    }
+
+    async function getJoke() {
+      const resultDiv = document.getElementById('jokeResult');
+
+      try {
+        const response = await fetch('/joke');
+        const data = await response.json();
+
+        resultDiv.textContent = data.joke;
+        resultDiv.className = 'mt-4 p-4 bg-gray-50 rounded-md';
+        showStatus('Joke received!');
+      } catch (error) {
+        showStatus('Error getting joke', true);
+        console.error('Error:', error);
+      }
+    }
+  </script>
+</body>
+
+</html>
