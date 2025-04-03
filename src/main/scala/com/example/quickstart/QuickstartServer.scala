@@ -13,6 +13,7 @@ import org.http4s.HttpRoutes
 import org.http4s.headers.`Content-Type`
 import org.http4s.MediaType
 import scala.io.Source
+import scala.util.Try
 
 object QuickstartServer:
 
@@ -42,10 +43,14 @@ object QuickstartServer:
       // With Middlewares in place
       finalHttpApp = Logger.httpApp(true, true)(httpApp)
 
+      // Get port from environment variable or default to 8080
+      port = Try(sys.env.get("PORT").map(_.toInt).getOrElse(8080)).getOrElse(8080)
+      serverPort = Port.fromInt(port).getOrElse(port"8080")
+
       _ <-
         EmberServerBuilder.default[F]
           .withHost(ipv4"0.0.0.0")
-          .withPort(port"8080")
+          .withPort(serverPort)
           .withHttpApp(finalHttpApp)
           .build
     } yield ()
