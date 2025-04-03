@@ -19,6 +19,8 @@ You can also use `bin/web` which uses `sbt run` for development.
 <details>
 <summary>Additional Information</summary>
 
+This is based on the [http4s quickstart](https://http4s.org/v0.23/docs/quickstart.html)
+
 ### Environment Variables
 - `PORT`: Change the port (default: 8080)
 
