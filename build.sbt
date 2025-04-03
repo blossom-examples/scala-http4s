@@ -19,8 +19,18 @@ lazy val root = (project in file("."))
       "org.typelevel"   %% "munit-cats-effect"   % MunitCatsEffectVersion % Test,
       "ch.qos.logback"  %  "logback-classic"     % LogbackVersion         % Runtime,
     ),
+    // Assembly settings
+    assembly / mainClass := Some("com.example.quickstart.Main"),
+    assembly / assemblyJarName := "quickstart.jar",
     assembly / assemblyMergeStrategy := {
       case "module-info.class" => MergeStrategy.discard
       case x => (assembly / assemblyMergeStrategy).value.apply(x)
     }
   )
+
+// Add stage task that creates the assembly jar
+lazy val stage = taskKey[Unit]("Stage the application")
+stage := {
+  (Compile / assembly).value
+  ()
+}

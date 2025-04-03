@@ -1,1 +1,1 @@
-web: java -jar target/scala-3.3.3/quickstart-assembly-0.0.1-SNAPSHOT.jar
+web: java -jar target/scala-3.3.3/quickstart.jar
