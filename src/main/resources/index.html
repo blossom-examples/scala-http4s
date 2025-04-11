@@ -10,49 +10,71 @@
 
 <body class="bg-gray-100 min-h-screen">
   <div class="container mx-auto px-4 py-8">
-    <header class="text-center mb-8">
-      <h1 class="text-4xl font-bold text-gray-800 mb-2">http4s Demo</h1>
-      <p class="text-gray-600 mb-4">A simple demo of http4s capabilities</p>
-      <a href="https://blossom-cloud.com" target="_blank"
-        class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors">
-        <span>Deploy on Blossom</span>
+    <!-- Hero Section -->
+    <div class="text-center mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 p-8 rounded-lg shadow-sm">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">Let Your Apps Blossom</h1>
+      <p class="text-xl text-gray-600 mb-6 max-w-3xl mx-auto">Deploy any application to your own servers. Save time and money with Blossom's simple deployment platform.</p>
+      <div class="flex justify-center gap-4 mb-6">
+        <a href="https://docs.blossom-cloud.com" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+          📖 Documentation
+        </a>
+        <a href="https://www.blossom-cloud.com/quickstarts" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+          🚀 Quickstarts
+        </a>
+      </div>
+      <a href="https://blossom-cloud.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center">
+        Learn more about Blossom
         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
         </svg>
       </a>
-    </header>
+    </div>
 
-    <div class="grid md:grid-cols-2 gap-8">
-      <!-- Greeting Generator -->
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Greeting Generator</h2>
-        <div class="space-y-4">
-          <div>
-            <label for="nameInput" class="block text-sm font-medium text-gray-700">Enter your name:</label>
-            <input type="text" id="nameInput"
-              class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              placeholder="World">
+    <!-- Demo Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-center">http4s Demo</h2>
+      <p class="text-gray-600 mb-6 text-center">This simple <a href="https://http4s.org/" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium">http4s</a> app demonstrates how easy it is to deploy Scala applications on <a href="https://blossom-cloud.com" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium">Blossom</a>.</p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Greeting Generator -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h3 class="text-xl font-semibold mb-4">Greeting Generator</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="nameInput" class="block text-sm font-medium text-gray-700">Enter your name:</label>
+              <input type="text" id="nameInput"
+                class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                placeholder="World">
+            </div>
+            <button onclick="getGreeting()"
+              class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              Get Greeting
+            </button>
+            <div id="greetingResult" class="mt-4 p-4 bg-white rounded-md hidden"></div>
           </div>
-          <button onclick="getGreeting()"
-            class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-            Get Greeting
-          </button>
-          <div id="greetingResult" class="mt-4 p-4 bg-gray-50 rounded-md hidden"></div>
         </div>
-      </div>
 
-      <!-- Joke Service -->
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold mb-4">Random Joke</h2>
-        <div class="space-y-4">
-          <button onclick="getJoke()"
-            class="w-full bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-            Get Joke
-          </button>
-          <div id="jokeResult" class="mt-4 p-4 bg-gray-50 rounded-md hidden"></div>
+        <!-- Joke Service -->
+        <div class="bg-gray-50 rounded-lg p-6">
+          <h3 class="text-xl font-semibold mb-4">Random Joke</h3>
+          <div class="space-y-4">
+            <button onclick="getJoke()"
+              class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              Get Joke
+            </button>
+            <div id="jokeResult" class="mt-4 p-4 bg-white rounded-md hidden"></div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Cost Savings Section -->
+    <div class="bg-white rounded-lg shadow-md p-8 text-center">
+      <h2 class="text-2xl font-semibold mb-4">Discover Your Savings 💵</h2>
+      <p class="text-gray-600 mb-6">See how much you can save with the cost calculator. Compare deployment costs and optimize your budget.</p>
+      <a href="https://www.blossom-cloud.com/pricing/calculator" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+        💰 Calculate Savings
+      </a>
     </div>
 
     <!-- Status Bar -->
@@ -83,7 +105,7 @@
         const data = await response.json();
 
         resultDiv.textContent = data.message;
-        resultDiv.className = 'mt-4 p-4 bg-gray-50 rounded-md';
+        resultDiv.className = 'mt-4 p-4 bg-white rounded-md';
         showStatus('Greeting received!');
       } catch (error) {
         showStatus('Error getting greeting', true);
@@ -99,7 +121,7 @@
         const data = await response.json();
 
         resultDiv.textContent = data.joke;
-        resultDiv.className = 'mt-4 p-4 bg-gray-50 rounded-md';
+        resultDiv.className = 'mt-4 p-4 bg-white rounded-md';
         showStatus('Joke received!');
       } catch (error) {
         showStatus('Error getting joke', true);

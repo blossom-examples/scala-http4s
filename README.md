@@ -9,10 +9,10 @@ A ready-to-deploy Scala http4s app to get you started quickly on [Blossom](https
 sbt assembly
 
 # Run the app
-java -jar target/scala-3.3.3/quickstart-assembly-0.0.1-SNAPSHOT.jar
+sbt run
 ```
 
-Visit `http://localhost:8080` in your browser to see the demo application.
+Visit http://localhost:8080 in your browser to see the demo application.
 
 You can also use `bin/web` which uses `sbt run` for development.
 
